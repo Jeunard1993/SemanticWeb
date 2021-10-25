@@ -1,0 +1,41 @@
+Get wikidata id of country
+
+SELECT * WHERE {
+    ?con osmt:place "country";
+         osmt:name ?name;
+  FILTER (?name = "Aruba")
+  ?con osmt:wikidata ?data.
+  }
+  
+  
+Get city of attraction
+
+SELECT * WHERE {
+    ?con osmt:tourism "museum";
+         osmt:name ?name;
+         osmt:addr:country ?country;
+         osmt:addr:postcode ?pos;
+         osmt:addr:city ?city
+  FILTER (?country = "GB")
+  ?con osmt:wikidata ?data.
+  }
+  
+Example of usagel
+
+SELECT * WHERE {
+    ?con osmt:tourism  "museum";
+         osmt:name ?name;
+         osmt:addr:country "GB";
+         osmt:addr:city ?city.
+?conv osmt:tourism "attraction";
+         osmt:name ?name2;
+         osmt:addr:country "GB";
+         osmt:addr:city ?city . 
+?conv4 osmt:tourism "hotel";
+         osmt:name ?name3;
+         osmt:addr:country "GB";
+         osmt:addr:city ?city .
+  }
+  
+
+tags: leisure, amenities, toursim
