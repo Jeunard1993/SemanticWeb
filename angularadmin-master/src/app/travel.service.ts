@@ -14,7 +14,7 @@ export class TravelService {
   }
 
   getInterests$(request:any):Observable<any> {
-    return this.http.post<any>(`api/interest`, request);
+    return this.http.post<any>(`api/interests`, request);
   }
   getDescriptions$(request:any):Observable<any> {
     return this.http.post<any>(`api/descriptions`, request);

@@ -83,8 +83,13 @@ export class RecommedationComponent implements OnInit,AfterViewInit {
 
       }
       var description = await this.travelService.getDescriptions$(request).toPromise();
-      this.localData[interests[i]] = description[0].desc.value;
-      console.log(this.localData)
+      if(description.length >0){
+        this.localData[interests[i]] = description[0].desc.value;
+      } else{
+        this.localData[interests[i]] = "";
+      }
+
+
     }
   }
 

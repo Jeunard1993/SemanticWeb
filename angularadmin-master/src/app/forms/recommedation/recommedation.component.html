@@ -17,7 +17,7 @@
 
 
                               {{item}} - {{localData[item]}} <br/>
-                              Nearest accommodation: {{this.hotel[item]}}
+                              Nearest accommodation: {{this.hotel[item]}}<br/>
 
 
 
@@ -34,8 +34,8 @@
           </div><!-- col-md-4 -->
 
 <div class="col-lg-4 col-md-6">
-  <div class="panel panel-dark noborder">
-      <div class="panel-heading noborder">
+  <div class="panel panel-default">
+      <div class="panel-default">
           <!-- <div class="panel-icon"><i class="fa fa-users"></i></div> -->
           <div class="media-body">
               <!-- <h5 class="md-title nomargin">Accomedations</h5> -->
@@ -50,7 +50,7 @@
                 <br/>
                 <div *ngIf="item.key!='interests'">
                 <a href="{{item.value['url']}}">{{item.key}}</a> located at {{item.value['street']}} {{item.value['number']}} <br/>
-                <button (click)="this.onClick(item.key, this.value['interests'])">distance</button>
+                <button (click)="this.onClick(item.key, this.value['interests'])">distance to interests</button>
               </div>
               </div>
           </div>
