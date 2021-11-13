@@ -1,0 +1,62 @@
+<div class="" id="page-wrapper">
+  <div class="container-fluid">
+      <div class="row row-stat">
+          <div class="col-lg-4">
+              <div class="panel panel-default">
+                  <div class="panel-default">
+                      <div class="media-body">
+                          <h5 class="md-title nomargin">Recommendation</h5>
+                          <h1 class="mt5">{{this.city}}</h1>
+                      </div><!-- media-body -->
+                      <hr>
+                      <div class="clearfix mt20" >
+                        <p>
+                          Based on your given interest we recommend you go and visit {{this.city}}.  This city has areas that match your interest, which were the following: <br/>
+                          <div *ngFor="let item of this.value['interests']" >
+
+
+
+                              {{item}} - {{localData[item]}} <br/>
+                              Nearest accommodation: {{this.hotel[item]}}
+
+
+
+                          </div>
+
+                          <!-- <mat-nav-list>
+                            <a mat-list-item href="..." *ngFor="let link of links"> {{ link }} </a>
+                         </mat-nav-list> -->
+
+                      </div>
+
+                  </div><!-- panel-body -->
+              </div><!-- panel -->
+          </div><!-- col-md-4 -->
+
+<div class="col-lg-4 col-md-6">
+  <div class="panel panel-dark noborder">
+      <div class="panel-heading noborder">
+          <!-- <div class="panel-icon"><i class="fa fa-users"></i></div> -->
+          <div class="media-body">
+              <!-- <h5 class="md-title nomargin">Accomedations</h5> -->
+              <h1 class="mt5">Accommodations</h1>
+          </div><!-- media-body -->
+          <hr>
+          <div class="clearfix mt20">
+
+              Available accommodations:
+              <br/>
+              <div *ngFor="let item of this.value|keyvalue">
+                <br/>
+                <div *ngIf="item.key!='interests'">
+                <a href="{{item.value['url']}}">{{item.key}}</a> located at {{item.value['street']}} {{item.value['number']}} <br/>
+                <button (click)="this.onClick(item.key, this.value['interests'])">distance</button>
+              </div>
+              </div>
+          </div>
+  </div>
+</div>
+
+
+
+</div>

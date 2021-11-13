@@ -36,6 +36,69 @@ SELECT * WHERE {
          osmt:addr:country "GB";
          osmt:addr:city ?city .
   }
+
+
+SELECT * WHERE {
+  ?pitch osmt:tourism "hotel" .
   
+  SERVICE wikibase:around { 
+    ?pitch osmm:loc ?coordinates.
+    
+    bd:serviceParam wikibase:center  "Point(52.2156920 6.5709520)"^^geo:wktLiteral.
+    bd:serviceParam wikibase:radius "100". # kilometers
+    bd:serviceParam wikibase:distance ?distance.
+    
+  }
+}
 
 tags: leisure, amenities, toursim
+
+SELECT * WHERE {
+  SERVICE <https://sophox.org/sparql> {
+  ?results osmt:addr:country ?country;
+    (osmt:tourism|osmt:leisure|osmt:amenity)  ?housing;
+    osmt:name ?label;
+    osmt:addr:city ?city;
+    osmm:loc ?coordinates.
+  ?result1 osmt:addr:country  ?country;
+       (osmt:tourism|osmt:leisure|osmt:amenity) ?interest1;
+        osmt:name "Uylenburg";
+        osmm:loc ?coordinates1;
+        osmt:addr:city ?city.
+        BIND(geof:distance(?coordinates1, ?coordinates) AS ?distance1)}
+FILTER ( ?label IN ("CitizenM","Train Lodge Hostel") )
+}
+{"country":"US","tourism":["zoo","attraction","museum"]
+}
+
+PREFIX osmnode: <https://www.openstreetmap.org/node/>
+PREFIX osmway: <https://www.openstreetmap.org/way/>
+PREFIX osmrel: <https://www.openstreetmap.org/relation/>
+PREFIX osmt: <https://wiki.openstreetmap.org/wiki/Key:>
+PREFIX osmm: <https://www.openstreetmap.org/meta/>
+PREFIX pageviews: <https://dumps.wikimedia.org/other/pageviews/>
+PREFIX osmd: <http://wiki.openstreetmap.org/entity/>
+PREFIX osmdt: <http://wiki.openstreetmap.org/prop/direct/>
+PREFIX osmp: <http://wiki.openstreetmap.org/prop/>
+PREFIX osmps: <http://wiki.openstreetmap.org/prop/statement/>
+PREFIX osmpq: <http://wiki.openstreetmap.org/prop/qualifier/>
+
+SELECT * WHERE {
+  SERVICE <https://sophox.org/sparql> { ?results osmt:addr:country ?country;
+    (osmt:tourism|osmt:leisure|osmt:amenity)  ?housing;
+    osmt:name ?label;
+    osmt:addr:city ?city;
+    osmm:loc ?coordinates.
+  ?result1 osmt:addr:country  ?country;
+       (osmt:tourism|osmt:leisure|osmt:amenity) ?interest1;
+        osmt:name "Anne Frank Huis";
+        osmm:loc ?coordinates1;
+        osmt:addr:city ?city.
+        OPTIONAL{?result1 osmt:wikidata ?d}
+        BIND(geof:distance(?coordinates1, ?coordinates) AS ?distance1)    
+                                      }
+   
+  OPTIONAL {  ?d schema:description ?o.
+  FILTER ( lang(?o) = "en" ) .} 
+  
+FILTER ( ?label IN ("CitizenM","Train Lodge Hostel") )}

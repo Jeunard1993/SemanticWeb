@@ -1,0 +1,122 @@
+<div class="" id="page-wrapper" *ngIf="!this.output;else other_content" >
+  <div class="container-fluid">
+    <div class="row row-stat">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading panel-heading-divider">Recommendation System<span class="panel-subtitle">Please enter the country that you wish to travel to and your interests</span>
+          </div>
+          <div class="panel-body">
+            <div class="xs-mt-10 xs-mb-10  ">
+              <div class="row">
+                <div class="col-md-8">
+                 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+                   <div>
+                     <label class="col-sm-3 control-label" for="form-control-8" >
+                       Country
+                      </label>
+                      <!-- <input id="name" type="text" formControlName="name"> -->
+                      <select formControlName="name">
+                        <option [ngValue]="null" disabled>Select Country</option>
+                        <option id="name" *ngFor="let int of this.COUNTRIES|keyvalue" [ngValue]="int.key" >{{int.value}}</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="col-sm-3 control-label" for="form-control-8" >
+                        Interests
+                      </label>
+                      <select formControlName="interest1">
+                        <option [ngValue]="null" disabled>Select Interest</option>
+                        <option id="interest1" *ngFor="let int of this.interest" [ngValue]="int.value" >{{int.name}}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label [hidden]="!show2"class="col-sm-3 control-label" for="form-control-8" >
+                        Interests
+                      </label>
+                      <select formControlName="interest2" [hidden]="!show2">
+                        <option  [ngValue]="null" disabled>Select Interest</option>
+                        <option id="interest2"  *ngFor="let int of this.interest" [ngValue]="int.value" >{{int.name}}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label [hidden]="!show3" class="col-sm-3 control-label" for="form-control-8" >
+                        Interests
+                      </label>
+                      <select formControlName="interest3" [hidden]="!show3">
+                        <option [ngValue]="null" disabled>Select Interest</option>
+                        <option id="interest3" [hidden]="!show3" *ngFor="let int of this.interest" [ngValue]="int.value" >{{int.name}}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label [hidden]="!show4" class="col-sm-3 control-label" for="form-control-8" >
+                        Interests
+                      </label>
+                      <select formControlName="interest4" [hidden]="!show4">
+                        <option [ngValue]="null" disabled>Select Interest</option>
+                        <option id="interest4" [hidden]="!show4" *ngFor="let int of this.interest" [ngValue]="int.value" >{{int.name}}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label [hidden]="!show5" class="col-sm-3 control-label" for="form-control-8" >
+                        Interests
+                      </label>
+                      <select formControlName="interest5" [hidden]="!show5">
+                        <option [ngValue]="null" disabled>Select Interest</option>
+                        <option id="interest5" [hidden]="!show5" *ngFor="let int of this.interest" [ngValue]="int.value" >{{int.name}}</option>
+                      </select>
+                    </div>
+                    <button class="button" type="submit">Start</button>
+                  </form>
+                  <button class="button" (click) = "showInput()">Add Interest</button>
+                  <button class="button" (click) = "resetInput()" >Reset Form</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body" *ngIf="this.searching" >
+      <div >
+        <strong>Searching</strong> Please wait a moment.
+      </div>
+  </div>
+  <div class="panel-body" [hidden]="this.tracker != 3">Sorry, we don't have a match for you.</div>
+  </div>
+
+</div>
+<ng-template #other_content1>
+  <div class="" id="page-wrapper" *ngIf="this.showDistances;else other_content" >
+    <button (click)="this.showDistances=false">Back to Form</button>
+    <div class="container-fluid">
+  <table mat-table [dataSource]="this.dataSource">
+
+    <ng-container *ngFor="let disCol of columns$  let colIndex = index" matColumnDef="{{disCol}}">
+      <th mat-header-cell *matHeaderCellDef>{{disCol}}</th>
+      <td mat-cell *matCellDef="let element">{{element[disCol]}}</td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="columns$ "></tr>
+    <tr mat-row *matRowDef="let row; columns: columns$  "></tr>
+  </table>
+  </div>
+  </div>
+
+</ng-template >
+
+<ng-template #other_content>
+  <div class="" id="page-wrapper" *ngIf="!this.showDistances;else other_content1" >
+    <button (click)="this.output=false">Back to Form</button>
+
+
+<div *ngFor="let item of this.toDisplay|keyvalue">
+<app-recommedation (distanceResults)="this.getDistanceTable($event)" [city] = item.key [value] = item.value ></app-recommedation>
+</div>
+</div>
+
+
+</ng-template>
+

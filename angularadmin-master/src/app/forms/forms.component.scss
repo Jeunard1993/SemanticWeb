@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+
+table {
+  width: 100%;
+  td {
+    padding-top: 12px;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  .column {
+    &__date {
+      text-align: left;
+      width: 100px;
+    }
+    &__locked {
+      text-align: left;
+      width: 350px;
+    }
+  }
+}
